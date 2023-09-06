@@ -25,20 +25,15 @@ int main()
 
     std::cout << "Dates: " << date::format("%F", mondays_date++) << " \n\n";
 
-    //todays_date -= (date::weekday{ todays_date } - date::Monday);
-    //date::year_month_day mondayDate = date::year_month_day{todays_date};
-    //std::cout << "Monday: " << date::format("%F", mondayDate) << " \n";
+    // get number of days between two arbitrary dates
+    todays_date = date::floor<date::days>(std::chrono::system_clock::now());
 
-    //// the below calculation needs 'todays_date' to be Monday to work correctly
-    //todays_date += date::Sunday - date::Monday; // go forward to Sunday's date
-    //std::cout << "Sunday: " << date::format("%F", todays_date) << " \n";
+    auto future_date = todays_date + date::days{ 11 };
+    std::cout << "Current Date: " << date::format("%F", todays_date) << " -- "
+        << "Future Date: " << date::format("%F", future_date) << " \n\n";
 
-    //// calculate range
-    //todays_date = date::floor<date::days>(std::chrono::system_clock::now());
-    //do
-    //{
-    //	std::cout << "Future Date: " << date::format("%F", ++todays_date) << " \n";
-    //} while (date::weekday{ todays_date } != date::Sunday);
+    auto num_days = (date::sys_days{ future_date } - date::sys_days{ todays_date }).count();
+    std::cout << "Num Days between dates: " << num_days << "\n\n";
 
     std::cin.get();
     return 0;
